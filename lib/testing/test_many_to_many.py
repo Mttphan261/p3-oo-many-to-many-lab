@@ -1,15 +1,18 @@
 from many_to_many import Author, Book, Contract
 import pytest
 
+
 def test_book_init():
     """Test Book class initializes with title"""
     book = Book("Title")
     assert book.title == "Title"
 
+
 def test_author_init():
     """Test Author class initializes with name"""
     author = Author("Name")
     assert author.name == "Name"
+
 
 def test_contract_init():
     """Test Contract class initializes with author, book, date, royalties"""
@@ -24,6 +27,7 @@ def test_contract_init():
     assert contract.date == date
     assert contract.royalties == royalties
 
+
 def test_contract_validates_author():
     """Test Contract class validates author of type Author"""
     book = Book("Title")
@@ -32,6 +36,7 @@ def test_contract_validates_author():
 
     with pytest.raises(Exception):
         Contract("Author", book, date, royalties)
+
 
 def test_contract_validates_book():
     """Test Contract class validates book of type Book"""
@@ -42,6 +47,7 @@ def test_contract_validates_book():
     with pytest.raises(Exception):
         Contract(author, "Book", date, royalties)
 
+
 def test_contract_validates_date():
     """Test Contract class validates date of type str"""
     author = Author("Name")
@@ -50,6 +56,7 @@ def test_contract_validates_date():
 
     with pytest.raises(Exception):
         Contract(author, book, 1012001, royalties)
+
 
 def test_contract_validates_royalties():
     """Test Contract class validates royalties of type int"""
@@ -60,6 +67,7 @@ def test_contract_validates_royalties():
     with pytest.raises(Exception):
         Contract(author, book, date, "Royalties")
 
+
 def test_author_has_contracts():
     """Test Author class has method contracts() that returns a list of its contracts"""
     author = Author("Name")
@@ -67,6 +75,7 @@ def test_author_has_contracts():
     contract = Contract(author, book, '01/01/2001', 50000)
 
     assert author.contracts() == [contract]
+
 
 def test_author_has_books():
     """Test Author class has method books() that returns a list of its books"""
@@ -76,6 +85,7 @@ def test_author_has_books():
 
     assert book in author.books()
 
+
 def test_book_has_contracts():
     """Test Book class has method contracts() that returns a list of its contracts"""
     author = Author("Name")
@@ -84,6 +94,7 @@ def test_book_has_contracts():
 
     assert book.contracts() == [contract]
 
+
 def test_book_has_authors():
     """Test Book class has method authors() that returns a list of its authors"""
     author = Author("Name")
@@ -91,6 +102,7 @@ def test_book_has_authors():
     Contract(author, book, '01/01/2001', 50000)
 
     assert author in book.authors()
+
 
 def test_author_can_sign_contract():
     """Test Author class has method sign_contract() that creates a contract for an author and book"""
@@ -105,6 +117,7 @@ def test_author_can_sign_contract():
     assert contract.date == "01/01/2001"
     assert contract.royalties == 60000
 
+
 def test_author_has_total_royalties():
     """Test Author class has method total_royalties that gets the sum of all its related contracts' royalties"""
     author = Author("Name")
@@ -117,6 +130,7 @@ def test_author_has_total_royalties():
     Contract(author, book3, "01/01/2001", 30)
 
     assert author.total_royalties() == 60
+
 
 def test_contract_sorts_contracts_by_date():
     """Test Contract class has method contracts_by_date() that sorts all contracts by date"""
